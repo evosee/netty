@@ -31,11 +31,13 @@ public class HttpServer {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new HttpServerCodec());// http 编解码
                             pipeline.addLast("httpAggregator", new HttpObjectAggregator(512 * 1024)); // http 消息聚合器                                                                     512*1024为接收的最大contentlength
+
+                            pipeline.addLast(new HttpResponseHandler());
                             pipeline.addLast(new HttpRequestHandler());// 请求处理器
                         }
                     });
 
-            ChannelFuture future = b.bind().sync();
+             ChannelFuture future = b.bind().sync();
             future.channel().closeFuture().sync();
 
         }finally {
