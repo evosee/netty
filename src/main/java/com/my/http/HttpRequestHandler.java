@@ -4,7 +4,6 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.util.concurrent.FutureListener;
 
 /**
  * @author chensai

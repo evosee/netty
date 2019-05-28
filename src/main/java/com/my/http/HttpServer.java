@@ -20,11 +20,12 @@ public class HttpServer {
     }
 
     public void start() throws InterruptedException {
-        EventLoopGroup eventExecutors = new NioEventLoopGroup();
+        EventLoopGroup boss = new NioEventLoopGroup(1);
+        EventLoopGroup eventExecutors = new NioEventLoopGroup(2);
 
         try{
             ServerBootstrap b = new ServerBootstrap();
-            b.group(eventExecutors).localAddress(port).channel(NioServerSocketChannel.class)
+            b.group(boss,eventExecutors).localAddress(port).channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<Channel>() {
                         @Override
                         protected void initChannel(Channel ch) throws Exception {
