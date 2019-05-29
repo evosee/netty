@@ -19,7 +19,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg;
 
-        System.out.println("Server received: " + byteBuf.toString(CharsetUtil.UTF_8));
+        System.out.println("NioServer received: " + byteBuf.toString(CharsetUtil.UTF_8));
         ctx.write(msg);
     }
 
