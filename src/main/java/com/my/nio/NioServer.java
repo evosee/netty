@@ -1,4 +1,4 @@
-package com.my.http.nio;
+package com.my.nio;
 
 import io.netty.util.CharsetUtil;
 
