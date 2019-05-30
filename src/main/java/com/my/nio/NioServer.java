@@ -28,13 +28,14 @@ public class NioServer {
     public void start() throws IOException {
         try (Selector selector = Selector.open();
              ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()) {
+
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.bind(new InetSocketAddress(port));
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
 
             while (true) {
-                int i = selector.select();
+                int i = selector.select(1000);
                 if (i == 0) continue;
                 Set<SelectionKey> sets = selector.selectedKeys();
                 Iterator<SelectionKey> iterable = sets.iterator();
@@ -44,9 +45,9 @@ public class NioServer {
                         ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
                         SocketChannel socketChannel = channel.accept();
                         socketChannel.configureBlocking(false);
-                        socketChannel.register(selectionKey.selector(), SelectionKey.OP_READ);
+                       socketChannel.register(selectionKey.selector(), SelectionKey.OP_READ);
                         iterable.remove();
-                    }else if (selectionKey.isReadable()) {
+                    } else if (selectionKey.isReadable()) {
                         SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
                         socketChannel.read(byteBuffer);
@@ -66,6 +67,6 @@ public class NioServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new NioServer(9999).start();
+        new NioServer(9991).start();
     }
 }
