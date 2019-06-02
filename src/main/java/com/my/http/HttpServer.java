@@ -21,7 +21,7 @@ public class HttpServer {
 
     public void start() throws InterruptedException {
         EventLoopGroup boss = new NioEventLoopGroup(1);
-        EventLoopGroup eventExecutors = new NioEventLoopGroup(2);
+        EventLoopGroup eventExecutors = new NioEventLoopGroup(1);
 
         try{
             ServerBootstrap b = new ServerBootstrap();
