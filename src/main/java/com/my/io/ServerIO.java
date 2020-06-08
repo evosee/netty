@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
  * @author chensai
  * @version 1.0
  * @date 2020/6/8 10:13
+ *
+ *
  */
 public class ServerIO {
     ExecutorService executor = Executors.newFixedThreadPool(4);
@@ -27,6 +29,7 @@ public class ServerIO {
                     try {
                         InputStream inputStream = socket.getInputStream();
                         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                        //线程会阻塞在这里 如果大量任务过来阻塞在这里线程会卡死
                         reader.lines().collect(Collectors.toList()).forEach(e -> {
                             System.out.println(e);
                         });
